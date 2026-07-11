@@ -2,6 +2,7 @@ from market_data import *
 from indicators import *
 from strategy import *
 from structure import *
+from liquidity import *
 
 if not connect():
     quit()
@@ -37,6 +38,8 @@ swing_lows = find_swing_lows(df)
 bos = detect_bos(df)
 choch = detect_choch(df)
 
+liquidity = detect_liquidity(df)
+
 print("=" * 60)
 print("FOREX BOT")
 print("=" * 60)
@@ -59,5 +62,6 @@ if swing_lows:
 
 print(f"BOS           : {bos}")
 print(f"CHoCH         : {choch}")
+print(f"Liquidity     : {liquidity}")
 
 disconnect()
