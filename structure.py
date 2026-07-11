@@ -7,9 +7,11 @@ def get_resistance(df):
 
 
 def find_swing_highs(df):
+
     swing_highs = []
 
     for i in range(2, len(df) - 2):
+
         if (
             df["high"].iloc[i] > df["high"].iloc[i - 1]
             and df["high"].iloc[i] > df["high"].iloc[i - 2]
@@ -22,9 +24,11 @@ def find_swing_highs(df):
 
 
 def find_swing_lows(df):
+
     swing_lows = []
 
     for i in range(2, len(df) - 2):
+
         if (
             df["low"].iloc[i] < df["low"].iloc[i - 1]
             and df["low"].iloc[i] < df["low"].iloc[i - 2]
@@ -41,15 +45,16 @@ def detect_bos(df):
     highs = find_swing_highs(df)
     lows = find_swing_lows(df)
 
+    if len(highs) < 2 or len(lows) < 2:
+        return "⚪ No BOS"
+
     last_close = df["close"].iloc[-1]
 
-    if len(highs) >= 2:
-        if last_close > highs[-2][1]:
-            return "🟢 Bullish BOS"
+    if last_close > highs[-2][1]:
+        return "🟢 Bullish BOS"
 
-    if len(lows) >= 2:
-        if last_close < lows[-2][1]:
-            return "🔴 Bearish BOS"
+    if last_close < lows[-2][1]:
+        return "🔴 Bearish BOS"
 
     return "⚪ No BOS"
 
@@ -64,13 +69,10 @@ def detect_choch(df):
 
     last_close = df["close"].iloc[-1]
 
-    latest_high = highs[-1][1]
-    latest_low = lows[-1][1]
-
-    if last_close > latest_high:
+    if last_close > highs[-1][1]:
         return "🟢 Bullish CHoCH"
 
-    if last_close < latest_low:
+    if last_close < lows[-1][1]:
         return "🔴 Bearish CHoCH"
 
     return "⚪ No CHoCH"

@@ -7,4 +7,4 @@ def get_signal(close, ema, rsi):
         return "🔴 SELL"
 
     else:
-        return "⚪ NO TRADE"
+        return "🟡 WAIT"
