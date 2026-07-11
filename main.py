@@ -3,7 +3,6 @@ from indicators import *
 from strategy import *
 from structure import *
 
-# Connect MT5
 if not connect():
     quit()
 
@@ -35,31 +34,30 @@ resistance = get_resistance(df)
 swing_highs = find_swing_highs(df)
 swing_lows = find_swing_lows(df)
 
+bos = detect_bos(df)
+choch = detect_choch(df)
+
 print("=" * 60)
 print("FOREX BOT")
 print("=" * 60)
 
-print(f"Symbol      : {symbol}")
-print(f"Trend       : {trend}")
-print(f"RSI         : {last_rsi:.2f}")
-print(f"RSI Status  : {rsi_status}")
-print(f"Signal      : {signal}")
+print(f"Symbol        : {symbol}")
+print(f"Trend         : {trend}")
+print(f"RSI           : {last_rsi:.2f}")
+print(f"RSI Status    : {rsi_status}")
+print(f"Signal        : {signal}")
+print(f"Support       : {support}")
+print(f"Resistance    : {resistance}")
 
-print("\nSupport & Resistance")
-print("-------------------------")
-print(f"Support     : {support}")
-print(f"Resistance  : {resistance}")
-
-print("\nSwing Points")
-print("-------------------------")
+print()
 
 if swing_highs:
-    print(f"Latest Swing High : {swing_highs[-1]}")
+    print(f"Swing High    : {swing_highs[-1][1]}")
 
 if swing_lows:
-    print(f"Latest Swing Low  : {swing_lows[-1]}")
+    print(f"Swing Low     : {swing_lows[-1][1]}")
 
-print("\nLast 10 Candles")
-print(df[["close", "EMA", "RSI"]].tail(10))
+print(f"BOS           : {bos}")
+print(f"CHoCH         : {choch}")
 
 disconnect()
